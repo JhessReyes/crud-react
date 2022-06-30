@@ -8,13 +8,11 @@ import LinkFrom from "../components/LinkFrom";
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
   rel="stylesheet"
 ></link>;
-const index = () => {
-  return (
-    <div>
-      <Links />
-      <LinkFrom />
-    </div>
-  );
-};
+const index = () => (
+  <>
+    <Links />
+  </>
+);
+
 
 export default index;

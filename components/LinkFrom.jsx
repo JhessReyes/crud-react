@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Form, Input, Select } from 'antd';
+import React, { useState } from "react";
+import { Button, Form, Input, Select } from "antd";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -16,14 +16,30 @@ const tailLayout = {
   },
 };
 
-const LinkFrom = () => {
+const LinkFrom = (props) => {
+  const [form] = Form.useForm();
 
-    const [form] = Form.useForm();
+  const initialStatesValues = {
+    Link: "",
+    Website: "",
+    Description: "",
+  };
 
-      const onFinish = (values) => {
-        console.log(values);
-      };
+  const [values, setValues] = useState(initialStatesValues);
+
+  const handleSubmit = (e) => {
+    /*  e.preventDefault();
+        console.log(e.target.value) */
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
     
+  };
+
+  const onFinish = (values) => {
+    /* console.log(values); */
+    props.addOrEdit(values);
+  };
+
   return (
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
       <Form.Item
@@ -34,19 +50,34 @@ const LinkFrom = () => {
             required: true,
           },
         ]}
+        onChange={handleSubmit}
       >
-    <Input />
+        <Input name="Link" />
       </Form.Item>
+
       <Form.Item
-        name="Name"
+        name="Website"
         label="Website Name"
         rules={[
           {
             required: true,
           },
         ]}
+        onChange={handleSubmit}
       >
-    <Input />
+        <Input name="Website" />
+      </Form.Item>
+      <Form.Item
+        name="Description"
+        label="Description"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+        onChange={handleSubmit}
+      >
+        <Input name="Description" />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
@@ -54,10 +85,8 @@ const LinkFrom = () => {
           Submit
         </Button>
       </Form.Item>
-      
     </Form>
-  )
+  );
+};
 
-}
-
-export default LinkFrom
+export default LinkFrom;
